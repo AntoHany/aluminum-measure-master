@@ -17,9 +17,9 @@ export function CuttingResults({ width, height, result }: Props) {
         <span className="text-xs text-muted-foreground">القياسات بالسنتيمتر</span>
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        <Piece label="حلق الزجاز" piece={result.glassFrame} accent="from-blue-500/20 to-blue-500/5" />
-        <Piece label="حلق الشبك" piece={result.meshFrame} accent="from-slate-500/20 to-slate-500/5" />
-        <Piece label="الزجاز" piece={result.glass} accent="from-cyan-500/20 to-cyan-500/5" />
+        <Piece label="درفه الزجاج" piece={result.glassFrame} accent="from-blue-500/20 to-blue-500/5" />
+        <Piece label="درفه السلك" piece={result.meshFrame} accent="from-slate-500/20 to-slate-500/5" />
+        <Piece label="مقاس الزجاج" piece={result.glass} accent="from-cyan-500/20 to-cyan-500/5" />
       </div>
       {result.notes && (
         <p className="mt-3 rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">

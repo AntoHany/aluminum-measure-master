@@ -28,40 +28,39 @@ export function calculateCutting(
   switch (sector) {
     case "bs_small": {
       const gfW = frameWidth / 2;
-      const gfH = frameHeight - 6.6;
+      const gfH = frameHeight - 6.5;
       return {
         glassFrame: { width: gfW, height: gfH },
-        meshFrame: { width: gfW, height: gfH + 0.3 },
-        glass: { width: gfW - 11, height: gfH - 11 },
+        meshFrame: { width: gfW, height: gfH },
+        glass: { width: ((frameHeight - 22) / 2), height: frameHeight - 17.5 },
       };
     }
     case "bs_large": {
-      const gfW = (frameWidth + 2) / 2;
-      const gfH = frameHeight - 6.6;
+      const gfW = (frameWidth - 1.5) / 2;
+      const gfH = frameHeight - 9.5;
       return {
         glassFrame: { width: gfW, height: gfH },
-        meshFrame: { width: gfW, height: gfH + 0.3 },
-        glass: { width: gfW - 12.5, height: gfH - 12.5 },
+        meshFrame: { width: gfW, height: gfH },
+        glass: { width: ((frameWidth - 27) / 2), height: frameHeight - 21.5 },
       };
     }
     case "jumbo": {
       const gfW = frameWidth / 2;
-      const gfH = frameHeight - 8.4;
-      const mfW = (frameWidth - 4.4) / 2;
-      const mfH = frameHeight - 0.9;
+      const gfH = frameHeight - 9.5;
+
       return {
         glassFrame: { width: gfW, height: gfH },
-        meshFrame: { width: mfW, height: mfH },
-        glass: { width: gfW - 29.5, height: gfH - 29.5 },
+        meshFrame: { width: gfW, height: gfH },
+        glass: { width: ((frameWidth - 28) / 2), height: frameHeight - 22.5 },
       };
     }
     case "tango": {
-      const gfW = (frameWidth + 1) / 2;
-      const gfH = frameHeight - 7.3;
+      const gfW = (frameWidth - 1) / 2;
+      const gfH = frameHeight - 7.5;
       return {
         glassFrame: { width: gfW, height: gfH },
-        meshFrame: null,
-        glass: null,
+        meshFrame: { width: gfW, height: gfH },
+        glass: { width: ((frameWidth - 22) / 2), height: frameHeight - 17.5 },
         notes: "صيغ الشبك والزجاز لـ Tango ستُضاف لاحقاً.",
       };
     }
