@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { Printer } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 import { CuttingResults } from "../components/CuttingResults";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import type { Measurement } from "../utils/calculations";
+import { formatNumber } from "../utils/calculations";
 import {
   type SectorType,
   SECTOR_LABELS,
