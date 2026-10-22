@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md print:hidden">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--gradient-primary)] text-primary-foreground font-bold shadow-[var(--shadow-glow)]">

@@ -150,6 +150,44 @@
   }
 }
 
+/* ===== Print (طباعة التخصيمات) ===== */
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+@media print {
+  [data-lovable-badge],
+  [data-lovable-element],
+  #lovable-badge {
+    display: none !important;
+  }
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    direction: rtl;
+  }
+
+  .print-table th,
+  .print-table td {
+    border: 1px solid var(--foreground);
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .print-table thead th {
+    background: var(--secondary);
+    font-weight: 700;
+  }
+
+  .print-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
 @theme inline {
   --color-aluminum: var(--aluminum);
   --color-aluminum-dark: var(--aluminum-dark);

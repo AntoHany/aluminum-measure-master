@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { Printer } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 import { CuttingResults } from "../components/CuttingResults";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import type { Measurement } from "../utils/calculations";
+import { formatNumber } from "../utils/calculations";
 import {
   type SectorType,
   SECTOR_LABELS,
@@ -40,7 +42,7 @@ function CuttingPage() {
   return (
     <div className="min-h-screen bg-background pb-12">
       <Navbar />
-      <main className="mx-auto max-w-5xl space-y-5 px-4 py-6">
+      <main className="mx-auto max-w-5xl space-y-5 px-4 py-6 print:hidden">
         <div>
           <h1 className="text-2xl font-extrabold text-foreground sm:text-3xl">التخصيمات</h1>
           <p className="text-sm text-muted-foreground">
@@ -117,7 +119,54 @@ function CuttingPage() {
             ))}
           </div>
         )}
+
+        {list.length > 0 && (
+          <button
+            onClick={() => window.print()}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--gradient-primary)] px-6 py-4 text-lg font-bold text-black shadow-[var(--shadow-glow)] transition active:scale-95"
+          >
+            <Printer className="h-5 w-5" />
+            طباعة
+          </button>
+        )}
       </main>
+
+      {list.length > 0 && (
+        <div className="hidden print:block">
+          <h1 className="mb-2 text-center text-2xl font-extrabold">تخصيمات الألوميتال</h1>
+          <p className="mb-4 text-center text-sm font-semibold">
+            نوع القطاع: {SECTOR_LABELS[sector]} — {new Date().toLocaleDateString("ar-EG")}
+          </p>
+          <table className="print-table">
+            <thead>
+              <tr>
+                <th>مقاس الشباك (سم)</th>
+                <th>درفه الزجاج</th>
+                <th>درفه السلك</th>
+                <th>مقاس الزجاج</th>
+                <th>العدد</th>
+              </tr>
+            </thead>
+            <tbody>
+              {list.map((item, i) => {
+                const fmt = (p: { width: number; height: number } | null) =>
+                  p ? `${formatNumber(p.width)} × ${formatNumber(p.height)}` : "—";
+                return (
+                  <tr key={item.id}>
+                    <td className="font-bold">
+                      {item.width} × {item.height}
+                    </td>
+                    <td>{fmt(item.result.glassFrame)}</td>
+                    <td>{fmt(item.result.meshFrame)}</td>
+                    <td>{fmt(item.result.glass)}</td>
+                    <td className="font-bold">{items[i]?.qty ?? 1}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
