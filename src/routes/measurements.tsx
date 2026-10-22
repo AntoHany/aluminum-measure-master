@@ -7,7 +7,7 @@ import { SummaryCard } from "../components/SummaryCard";
 import { GroupedMeasurements } from "../components/GroupedMeasurements";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import type { Measurement } from "../utils/calculations";
-import { totalArea } from "../utils/calculations";
+import { totalArea, totalQuantity } from "../utils/calculations";
 
 export const Route = createFileRoute("/measurements")({
   head: () => ({
@@ -27,7 +27,7 @@ function MeasurementsPage() {
 
   const total = useMemo(() => totalArea(items, minOneMeter), [items, minOneMeter]);
 
-  const handleSubmit = (m: { width: number; height: number }) => {
+  const handleSubmit = (m: { width: number; height: number; qty: number }) => {
     if (editing) {
       setItems(items.map((it) => (it.id === editing.id ? { ...editing, ...m } : it)));
       setEditing(null);
@@ -35,6 +35,9 @@ function MeasurementsPage() {
       setItems([...items, { id: crypto.randomUUID(), ...m }]);
     }
   };
+
+  const changeQty = (id: string, qty: number) =>
+    setItems(items.map((it) => (it.id === id ? { ...it, qty: Math.max(1, Math.round(qty)) } : it)));
 
   const clearAll = () => {
     if (confirm("هل تريد حذف كل المقاسات؟")) setItems([]);
@@ -76,7 +79,7 @@ function MeasurementsPage() {
         </label>
 
         <SummaryCard
-          count={items.length}
+          count={totalQuantity(items)}
           totalArea={total}
           pricePerMeter={pricePerMeter}
           onPriceChange={setPricePerMeter}
@@ -86,6 +89,7 @@ function MeasurementsPage() {
           items={items}
           minOneMeter={minOneMeter}
           onEdit={setEditing}
+          onChangeQty={changeQty}
           onDelete={(id) => setItems(items.filter((m) => m.id !== id))}
         />
 

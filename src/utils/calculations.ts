@@ -2,6 +2,7 @@ export type Measurement = {
   id: string;
   width: number; // cm
   height: number; // cm
+  qty: number; // عدد الشبابيك بنفس المقاس
 };
 
 export const calcArea = (width: number, height: number, minOneMeter = false): number => {
@@ -10,8 +11,15 @@ export const calcArea = (width: number, height: number, minOneMeter = false): nu
   return area;
 };
 
+/** مساحة الشباك الواحد (قبل ضرب الكمية) */
+export const unitArea = (m: Measurement, minOneMeter = false): number =>
+  calcArea(m.width, m.height, minOneMeter);
+
 export const totalArea = (items: Measurement[], minOneMeter = false): number =>
-  items.reduce((sum, m) => sum + calcArea(m.width, m.height, minOneMeter), 0);
+  items.reduce((sum, m) => sum + unitArea(m, minOneMeter) * (m.qty ?? 1), 0);
+
+export const totalQuantity = (items: Measurement[]): number =>
+  items.reduce((sum, m) => sum + (m.qty ?? 1), 0);
 
 export const totalPrice = (area: number, pricePerMeter: number): number =>
   area * pricePerMeter;
@@ -23,8 +31,8 @@ export const groupMeasurements = (
   for (const m of items) {
     const key = `${m.width}x${m.height}`;
     const existing = map.get(key);
-    if (existing) existing.count += 1;
-    else map.set(key, { width: m.width, height: m.height, count: 1 });
+    if (existing) existing.count += m.qty ?? 1;
+    else map.set(key, { width: m.width, height: m.height, count: m.qty ?? 1 });
   }
   return Array.from(map.values());
 };
