@@ -79,7 +79,7 @@ function MeasurementsPage() {
         </label>
 
         <SummaryCard
-          count={items.length}
+          count={totalQuantity(items)}
           totalArea={total}
           pricePerMeter={pricePerMeter}
           onPriceChange={setPricePerMeter}
@@ -89,6 +89,7 @@ function MeasurementsPage() {
           items={items}
           minOneMeter={minOneMeter}
           onEdit={setEditing}
+          onChangeQty={changeQty}
           onDelete={(id) => setItems(items.filter((m) => m.id !== id))}
         />
 
