@@ -46,7 +46,7 @@ export function calculateCutting(
     }
     case "jumbo": {
       const gfW = frameWidth / 2;
-      const gfH = frameHeight - 9.5;
+      const gfH = frameHeight - 8.5;
 
       return {
         glassFrame: { width: gfW, height: gfH },
