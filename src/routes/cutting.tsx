@@ -139,7 +139,7 @@ function CuttingPage() {
       </main>
 
       {list.length > 0 && (
-        <div className="sticky bottom-0 z-40 border-t border-border bg-card/90 px-4 py-3 backdrop-blur-md print:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/90 px-4 py-3 backdrop-blur-md print:hidden">
           <div className="mx-auto max-w-5xl">
             <button
               onClick={() => setPrintOpen(true)}
